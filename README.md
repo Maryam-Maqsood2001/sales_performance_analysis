@@ -1,141 +1,154 @@
-Here’s a `README.md` file that you can use for your Sales Team Performance Analysis backend system:
+Sure! Here’s the content for the `README.md` file without markdown formatting:
 
 ---
 
-# Sales Team Performance Analysis Backend
+# Sales Team Performance Analysis
 
 ## Overview
-
-This project is a backend system that uses a Large Language Model (LLM) to analyze sales data and provide performance feedback for individual sales representatives and the entire team. The system is built using Flask, integrates OpenAI's GPT for natural language insights, and provides multiple RESTful API endpoints for feedback generation.
+The Sales Team Performance Analysis project implements a backend system that utilizes a Large Language Model (LLM) to analyze sales data. The system provides insights and feedback on both individual sales representatives and the overall performance of the sales team. This application serves as a valuable tool for sales managers and team leaders to make data-driven decisions and improve sales strategies.
 
 ## Features
+- Individual Performance Analysis: Analyze the performance of individual sales representatives based on their sales data.
+- Team Performance Summary: Generate a comprehensive summary of the overall performance of the sales team.
+- Performance Trends and Forecasting: Analyze historical sales data to identify trends and forecast future performance.
+- LLM-Generated Insights: Leverage the capabilities of a Large Language Model to provide qualitative feedback and actionable insights based on sales performance data.
 
-- Ingest sales data in CSV or JSON format.
-- Analyze individual sales representatives' performance.
-- Assess overall team performance.
-- Forecast sales trends and provide insights.
-- API endpoints to query performance data.
-  
-## Requirements
+## Technologies Used
+- Flask: A lightweight WSGI web application framework for Python, which provides the core functionality for building web applications and APIs.
+- Pandas: A powerful data manipulation and analysis library for Python, used to handle and process sales data efficiently.
+- OpenAI API: Integration with a Large Language Model (such as GPT-3) to generate insights and feedback based on sales performance data.
 
-Make sure you have the following installed:
-- Python 3.8+
-- Virtual environment (optional but recommended)
+## Setup and Run Instructions
+Follow these steps to set up and run the application locally:
 
-## Installation
-
-1. Clone the Repository:
-
-   ```bash
-   git clone https://github.com/your-repo/sales-performance-analysis.git
-   cd sales-performance-analysis
+1. Clone the repository:
+   Open your terminal or command prompt and run:
+   ```
+   git clone <repository_url>
+   cd sales_performance_analysis
    ```
 
-2. Create and Activate a Virtual Environment (Optional):
+2. Set up a virtual environment:
+   Create a virtual environment to manage dependencies:
+   ```
+   python -m venv venv
+   ```
 
-   - Windows:
-     ```bash
-     python -m venv venv
-     venv\Scripts\activate
+   Activate the virtual environment:
+   - On macOS/Linux:
      ```
-   - macOS/Linux:
-     ```bash
-     python3 -m venv venv
      source venv/bin/activate
      ```
+   - On Windows:
+     ```
+     venv\Scripts\activate
+     ```
 
-3. Install Dependencies:
-
-   Run the following command to install all the required Python packages:
-
-   ```bash
+3. Install the required packages:
+   Use pip to install the necessary dependencies listed in `requirements.txt`:
+   ```
    pip install -r requirements.txt
    ```
 
-4. Set Up OpenAI API Key:
+4. Configure OpenAI API Key:
+   In the `llm_integration.py` file, replace `your_openai_api_key` with your actual OpenAI API key to enable LLM functionality.
 
-   You need to set your OpenAI API key in the `app.py` file:
-
-   ```python
-   openai.api_key = 'your-openai-api-key'
+5. Run the application:
+   Start the Flask application by executing:
+   ```
+   python app.py
    ```
 
-## Running the Application
+6. Access the API:
+   The application will be running on `http://127.0.0.1:5000/`. You can use API testing tools like Postman or Insomnia to interact with the endpoints.
 
-To start the Flask server:
-
-```bash
-python app.py
-```
-
-The server will start at `http://localhost:5000`.
-
-### Available API Endpoints
-
-1. Get Feedback for a Sales Representative:
-   - URL: `/api/feedback/sales_performance_analysis`
-   - Method: `GET`
-   - Description: Returns feedback for a specific sales representative.
-   - Example: 
-     ```bash
-     GET http://localhost:5000/api/feedback/JohnDoe
-     ```
-
-   - Response:
-     ```json
-     {
-       "feedback": "Generated feedback for sales representative JohnDoe."
-     }
-     ```
-
-2. Get Overall Team Performance:
-   - URL: `/api/team_performance`
-   - Method: `GET`
-   - Description: Returns the overall performance of the sales team.
-   - Example:
-     ```bash
-     GET http://localhost:5000/api/team_performance
-     ```
-
-   - Response:
-     ```json
-     {
-       "feedback": "Overall team performance insights."
-     }
-     ```
-
-3. Get Sales Performance Trends and Forecast:
-   - URL: `/api/performance_trends`
-   - Method: `GET`
-   - Description: Returns sales performance trends and forecasting data.
-   - Example:
-     ```bash
-     GET http://localhost:5000/api/performance_trends
-     ```
-
-   - Response:
-     ```json
-     {
-       "feedback": "Sales performance trends and forecast."
-     }
-     ```
-
-## Testing the API
-
-You can use Postman, Insomnia, or `cURL` to test the API endpoints.
-
-- Example with `cURL`:
-  ```bash
-  curl -X GET http://localhost:5000/api/feedback/JohnDoe
+## API Endpoints
+### 1. Individual Sales Representative Performance Analysis
+- **Endpoint**: `/api/rep_performance`
+- **Method**: `GET`
+- **Parameters**:
+  - `rep_id`: (required) Unique identifier for the sales representative.
+- **Description**: Returns detailed performance analysis and feedback for the specified sales representative.
+- **Example Request**:
+  ```
+  GET /api/rep_performance?rep_id=1
   ```
 
-- Example with Postman:
-  1. Open Postman.
-  2. Set the method to `GET`.
-  3. Enter `http://localhost:5000/api/feedback/JohnDoe` in the URL.
-  4. Click Send to get the response.
+### 2. Overall Sales Team Performance Summary
+- **Endpoint**: `/api/team_performance`
+- **Method**: `GET`
+- **Description**: Provides a summary of the sales team’s overall performance.
+- **Example Request**:
+  ```
+  GET /api/team_performance
+  ```
 
-## Troubleshooting
+### 3. Sales Performance Trends and Forecasting
+- **Endpoint**: `/api/performance_trends`
+- **Method**: `GET`
+- **Parameters**:
+  - `time_period`: (optional) Time frame for trend analysis (e.g., `monthly`, `quarterly`). Default is `monthly`.
+- **Description**: Analyzes sales data over the specified time period to identify trends and forecast future performance.
+- **Example Request**:
+  ```
+  GET /api/performance_trends?time_period=monthly
+  ```
 
-- SSL Errors: If you encounter SSL handshake errors, ensure that your internet connection is stable, and check for any proxy issues.
-- OpenAI Key Error: Ensure your OpenAI API key is correct and valid. If the key is incorrect, the LLM integration will fail.
+## Example Responses
+- The API will return JSON responses containing:
+  - Performance data for individual sales representatives.
+  - Summary statistics for the sales team.
+  - Trend analysis and forecasting insights.
+
+### Sample Response for Individual Sales Performance Analysis
+{
+  "rep_id": "1",
+  "performance": [
+    {
+      "employee_id": 1,
+      "sales": 20000,
+      "tours_booked": 10,
+      "applications": 5,
+      "created": "2024-10-01"
+    }
+  ],
+  "insights": "Sales representative 1 has shown consistent performance with a total of 20000 sales."
+}
+
+### Sample Response for Team Performance Summary
+{
+  "team_performance": {
+    "count": 10,
+    "mean": 15000.0,
+    "std": 5000.0,
+    "min": 10000,
+    "25%": 12000,
+    "50%": 15000,
+    "75%": 17000,
+    "max": 20000
+  },
+  "insights": "The sales team has an average performance with significant potential for improvement."
+}
+
+### Sample Response for Sales Performance Trends
+{
+  "trends": {
+    "2024-10-01": {
+      "sales": 50000,
+      "tours_booked": 30,
+      "applications": 15
+    },
+    "2024-11-01": {
+      "sales": 60000,
+      "tours_booked": 35,
+      "applications": 20
+    }
+  },
+  "insights": "Sales have increased by 20% from October to November, indicating a positive trend."
+}
+
+## Contributing
+Contributions are welcome! If you have suggestions for improvements or features, please create an issue or submit a pull request.
+
+## Contact
+For any questions or inquiries, please reach out to maryam.maqsoodahmad@gmail.com.
