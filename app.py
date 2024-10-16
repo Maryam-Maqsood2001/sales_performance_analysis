@@ -1,29 +1,11 @@
 from flask import Flask, jsonify, request
 import pandas as pd
-import requests
+from llm_integration import generate_insights
 
 app = Flask(__name__)
 
 # Load the sales data
 sales_data = pd.read_csv('sales_performance_data.csv')
-
-# OpenAI API key (replace with your own)
-OPENAI_API_KEY = 'your_openai_api_key'
-LLM_URL = "https://api.openai.com/v1/chat/completions"
-
-# Function to get insights from the LLM
-def generate_insights(prompt):
-    headers = {
-        "Authorization": f"Bearer {OPENAI_API_KEY}",
-        "Content-Type": "application/json",
-    }
-    data = {
-        "model": "gpt-3.5-turbo",
-        "messages": [{"role": "user", "content": prompt}],
-    }
-    
-    response = requests.post(LLM_URL, headers=headers, json=data)
-    return response.json()['choices'][0]['message']['content']
 
 # Endpoint: Individual Sales Representative Performance Analysis
 @app.route('/api/rep_performance', methods=['GET'])
@@ -71,4 +53,3 @@ def performance_trends():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
